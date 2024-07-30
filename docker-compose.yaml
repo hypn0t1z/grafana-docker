@@ -20,7 +20,7 @@ services:
     depends_on:
       - mysql_db
     ports:
-      - ${PORT}:${PORT}
+      - ${PORT}:3000
     env_file:
       - .env
     volumes:
