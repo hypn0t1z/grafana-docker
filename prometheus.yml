@@ -11,11 +11,6 @@ scrape_configs:
   # Job for node_exporter VM1
   - job_name: 'vm1_node_exporter'
     static_configs:
-      - targets: [ '13.215.90.241:9100' ]
-
-  # Job for node_exporter VM2
-  - job_name: 'vm2_node_exporter'
-    static_configs:
       - targets: ['node_exporter:9100']
 
   # Job for cadvisor
