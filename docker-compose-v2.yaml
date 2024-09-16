@@ -1,0 +1,31 @@
+services:
+  mysql_db:
+    image: mysql:8.0.25
+    container_name: mysql_8_0_25
+    restart: unless-stopped
+    environment:
+      MYSQL_USER: ${GF_DATABASE_USER}
+      MYSQL_PASSWORD: ${GF_DATABASE_PASSWORD}
+      MYSQL_DATABASE: ${GF_DATABASE_NAME}
+      MYSQL_ROOT_PASSWORD: ${GF_DATABASE_PASSWORD}
+    ports:
+      - ${DATABASE_PORT}:3306
+    volumes:
+        - db-backup:/var/lib/mysql
+
+  grafana:
+    image: grafana/grafana-enterprise
+    container_name: grafana
+    restart: unless-stopped
+    depends_on:
+      - mysql_db
+    ports:
+      - ${PORT}:3000
+    env_file:
+      - .env
+    volumes:
+      - grafana-storage:/var/lib/grafana
+
+volumes:
+  grafana-storage: {}
+  db-backup: {}
